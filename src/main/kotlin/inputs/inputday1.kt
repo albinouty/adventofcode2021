@@ -1,4 +1,6 @@
-val input = listOf(
+package inputs
+
+val inputDayOne = listOf(
     1788,
     1627,
     1883,
