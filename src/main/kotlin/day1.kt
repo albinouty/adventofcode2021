@@ -6,6 +6,6 @@ fun main(args: Array<String>) {
                 val a = input[i]
                 val b = input[x]
                 println("The two digits that add to $sum are $a and $b. Multiplied together they are " + a*b)
-            }
+            }s
     }
 }
