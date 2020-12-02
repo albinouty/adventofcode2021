@@ -46,4 +46,29 @@ fun main(args: Array<String>) {
     }
     val sum = answer.sum()
     println(sum)
+
+
+    //Part 2
+
+    fun checkPassPart2(pass: String, letter: Char, bounds: List<Int?>): Int {
+        val indexOne = bounds[0]!! - 1
+        val indexTwo = bounds[1]!! - 1
+        val letterOne = pass[indexOne]
+        val letterTwo = pass[indexTwo]
+
+        return if(letterOne == letter && letterTwo != letter) {
+            1
+        } else if(letterTwo == letter && letterOne != letter) {
+            1
+        } else 0
+    }
+    val part2 = inputDayTwo.map {
+        val letter = getLetter(it)
+        val bounds = getBounds(it)
+        val pass = getPass(it)
+        checkPassPart2(pass.trimStart(), letter, bounds)
+    }
+
+    val sum2 = part2.sum()
+    println(sum2)
 }
