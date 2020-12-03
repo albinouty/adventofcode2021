@@ -13,16 +13,13 @@ fun main(args: Array<String>) {
     fun readFileAsLinesUsingUseLines(fileName: String): List<String> = File(fileName).useLines { it.toList() }
     val inputDayThree = readFileAsLinesUsingUseLines("src/main/resources/inputday3.txt")
     val expInput = inputDayThree.map { it.repeat(expand) }
-    val x = 3
-    val y = 1
     //day 2 input
     val uno = listOf(1, 1)
     val dos = listOf(3, 1)
     val tres = listOf(5, 1)
     val quatro = listOf(7, 1)
     val cinco = listOf(1, 2)
-
-
+    
     fun tobogganRide(slope: List<Int>): Int {
         val ans = expInput.mapIndexed {idx, value ->
             if(idx % slope[1] == 0) {
