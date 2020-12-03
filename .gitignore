@@ -6,7 +6,7 @@
 *.iml
 *.ipr
 
-/build/
+build/*
 .DS_Store
 
 ### Eclipse ###
