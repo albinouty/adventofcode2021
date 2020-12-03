@@ -15,11 +15,18 @@ fun main(args: Array<String>) {
     val expInput = inputDayThree.map { it.repeat(expand) }
     val x = 3
     val y = 1
+    //day 2 input
+    val uno = listOf(1, 1)
+    val dos = listOf(3, 1)
+    val tres = listOf(5, 1)
+    val quatro = listOf(7, 1)
+    val cinco = listOf(1, 2)
 
-    fun tobogganRide(x: Int, y: Int): Int {
+
+    fun tobogganRide(slope: List<Int>): Int {
         val ans = expInput.mapIndexed {idx, value ->
-            if(idx % y == 0) {
-                val check = value[x * (idx/y)]
+            if(idx % slope[1] == 0) {
+                val check = value[slope[0] * (idx/slope[1])]
                 if(check == '#'){
                     1
                 } else 0
@@ -29,6 +36,12 @@ fun main(args: Array<String>) {
         return ans.sum()
     }
 
-    println(tobogganRide(x, y))
+    //part 1
+    println(tobogganRide(dos))
 
+    //part 2
+    val ultraList =  listOf(uno, dos, tres, quatro, cinco)
+    val indAns = ultraList.map { tobogganRide(it) }
+    val ans2 = indAns.reduce {acc, i -> acc * i }
+    println(ans2)
 }
