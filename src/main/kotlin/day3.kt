@@ -27,8 +27,7 @@ fun main(args: Array<String>) {
                 if(check == '#'){
                     1
                 } else 0
-        } else 0
-
+            } else 0
         }
         return ans.sum()
     }
