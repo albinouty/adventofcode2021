@@ -41,7 +41,7 @@ fun main(args: Array<String>) {
 
     //part 2
     val ultraList =  listOf(uno, dos, tres, quatro, cinco)
-    val indAns = ultraList.map { tobogganRide(it) }
+    val indAns = ultraList.map { tobogganRide(it).toLong() }
     val ans2 = indAns.reduce {acc, i -> acc * i }
     println(ans2)
 }
