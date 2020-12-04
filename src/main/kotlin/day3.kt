@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
     val tres = listOf(5, 1)
     val quatro = listOf(7, 1)
     val cinco = listOf(1, 2)
-    
+
     fun tobogganRide(slope: List<Int>): Int {
         val ans = expInput.mapIndexed {idx, value ->
             if(idx % slope[1] == 0) {
