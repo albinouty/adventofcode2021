@@ -38,35 +38,31 @@ fun main(args: Array<String>) {
     }
 
     fun validateYear(b: Int, e: Int, input: Int): Boolean {
-        val what = input in b..e
-        return what
+        return input in b..e
     }
 
     fun validateHcl(input: String): Boolean {
         val ptrn = Regex("^[#][a-f0-9]{6}$")
-        val what = input.count() == 7 && ptrn.containsMatchIn(input)
-        return what
+        return input.count() == 7 && ptrn.containsMatchIn(input)
     }
 
     fun validatePid(input: String): Boolean {
         val ptrn = Regex("^[0-9]{9}\$")
-        val what = ptrn.containsMatchIn(input)
-        return what
+        return ptrn.containsMatchIn(input)
     }
 
     fun validateEyeColor(input: String): Boolean {
-        val what = when (input) {
+        return when (input) {
             "amb", "blu", "brn", "gry", "grn", "hzl", "oth" -> true
             else -> false
         }
-        return what
     }
 
     fun validateHeight(input: String): Boolean {
         val initPtrn = Regex("^[0-9]{2,3}[a-z]{2}\$") //initial filter
         val numPtrn = Regex("[0-9]{2,3}")
         val unitPtrn = Regex("[a-z]{2,3}")
-        val what =  if(initPtrn.containsMatchIn(input)) {
+        return if(initPtrn.containsMatchIn(input)) {
             val height = numPtrn.find(input)!!.value.toInt()
             val unit = unitPtrn.find(input)!!.value
             if(unit == "cm" && height in 150..193) {
@@ -75,13 +71,12 @@ fun main(args: Array<String>) {
                 unit == "in" && height in 59..76
             }
         } else false
-        return what
     }
 
     fun validateValue(k: String): Boolean {
         val key = k.substringBefore(":")
         val value = k.substringAfter(":")
-        val what = when (key) {
+        return when (key) {
             "byr" -> validateYear(1920, 2002, value.toInt())
             "iyr" -> validateYear(2010, 2020, value.toInt())
             "eyr" -> validateYear(2020, 2030, value.toInt())
@@ -92,7 +87,6 @@ fun main(args: Array<String>) {
             "cid" -> true
             else -> false
         }
-        return what
     }
 
     val validPassports = mutableListOf<String>()
@@ -104,9 +98,6 @@ fun main(args: Array<String>) {
                     validateValue(it)) {
                     1
                 } else 0
-//                if(resolveKey(it.substringBefore(":")) == "valid") {
-//                    1
-//                } else 0
             }
             if(validKeys.sum() >= 7) {
                 validPassports.add(k)
