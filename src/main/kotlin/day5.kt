@@ -6,31 +6,51 @@ fun main(args: Array<String>) {
     val bfPtrn = Regex("^[B|F]{7}")
     val cPtrn = Regex("[R|L]{3}")
     val rowsMas = IntArray(128) {1 * (it + 1)}
+    val seatsMas = IntArray(8) {1 * (it + 1)}
     val rowLocations = mutableListOf<String>()
 
-    fun resolveRow(input: String): Int {
-        var rows = rowsMas.clone()
+    data class BoardingPass (
+        val row: Int,
+        val column: Int,
+        val seat: Int
+    )
+
+    fun resolveArr(input: String, upper: Char, lower: Char): Int {
+        var arr = if(upper == 'B') {
+            rowsMas.clone()
+        } else seatsMas.clone()
         for(i in input.indices)
-            if(input[i] == 'B') {
-                val n = (rows.size + 1)/2
-                val b = rows.size
-                if(rows.size == 2) {
-                    return rows[1] - 1
-                } else rows = rows.copyOfRange(n, b)
+            arr = if(input[i] == upper) {
+                val n = (arr.size + 1)/2
+                val b = arr.size
+                if(arr.size == 2) {
+                    return arr[1] - 1
+                } else arr.copyOfRange(n, b)
             } else {
-                val n = (rows.size + 1) /2
-                if(rows.size == 2) {
-                    return rows[0] - 1
-                } else rows = rows.copyOfRange(0, n)
+                val n = (arr.size + 1) /2
+                if(arr.size == 2) {
+                    return arr[0] - 1
+                } else arr.copyOfRange(0, n)
             }
         return 0
     }
 
+    val passes = mutableListOf<BoardingPass>()
+    val seatIds = mutableListOf<Int>()
     while(true) {
         val tmp = reader.readLine() ?: break
         val rowLoc = bfPtrn.find(tmp)!!.value
-        println(resolveRow(rowLoc))
+        val colLoc = cPtrn.find(tmp)!!.value
+        val row = resolveArr(rowLoc, 'B', 'F')
+        val col = resolveArr(colLoc, 'R', 'L')
+        val seat = (row * 8) + col
+        seatIds.add(seat)
+        passes.add(BoardingPass(
+            row,
+            col,
+            seat
+        ))
     }
-
-
+    //part 1
+    println("The highest seat ID on a boarding pass is ${seatIds.max()}")
 }
