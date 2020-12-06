@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
     val rowsMas = IntArray(128) {1 * (it + 1)}
     val seatsMas = IntArray(8) {1 * (it + 1)}
 
-    fun resolveArr(input: String, upper: Char, lower: Char): Int {
+    fun resolveArr(input: String, upper: Char): Int {
         var arr = if(upper == 'B') {
             rowsMas.clone()
         } else seatsMas.clone()
@@ -43,8 +43,8 @@ fun main(args: Array<String>) {
         val tmp = reader.readLine() ?: break
         val rowLoc = bfPtrn.find(tmp)!!.value
         val colLoc = cPtrn.find(tmp)!!.value
-        val row = resolveArr(rowLoc, 'B', 'F')
-        val col = resolveArr(colLoc, 'R', 'L')
+        val row = resolveArr(rowLoc, 'B')
+        val col = resolveArr(colLoc, 'R')
         val seat = (row * 8) + col
         seatIds.add(seat)
     }
