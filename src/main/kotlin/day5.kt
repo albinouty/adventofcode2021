@@ -7,13 +7,6 @@ fun main(args: Array<String>) {
     val cPtrn = Regex("[R|L]{3}")
     val rowsMas = IntArray(128) {1 * (it + 1)}
     val seatsMas = IntArray(8) {1 * (it + 1)}
-    val rowLocations = mutableListOf<String>()
-
-    data class BoardingPass (
-        val row: Int,
-        val column: Int,
-        val seat: Int
-    )
 
     fun resolveArr(input: String, upper: Char, lower: Char): Int {
         var arr = if(upper == 'B') {
@@ -35,7 +28,16 @@ fun main(args: Array<String>) {
         return 0
     }
 
-    val passes = mutableListOf<BoardingPass>()
+    fun findSeat(input: List<Int>): Int {
+        var x = input[0]
+        for(i in input) {
+            if(i == x) {
+                x += 1
+            } else break
+        }
+        return x
+    }
+
     val seatIds = mutableListOf<Int>()
     while(true) {
         val tmp = reader.readLine() ?: break
@@ -45,12 +47,11 @@ fun main(args: Array<String>) {
         val col = resolveArr(colLoc, 'R', 'L')
         val seat = (row * 8) + col
         seatIds.add(seat)
-        passes.add(BoardingPass(
-            row,
-            col,
-            seat
-        ))
     }
     //part 1
     println("The highest seat ID on a boarding pass is ${seatIds.max()}")
+
+    //part 2
+    seatIds.sort()
+    println("Your seat is ${findSeat(seatIds)}")
 }
