@@ -7,20 +7,11 @@ fun main(args: Array<String>) {
         }.toList()
     }
     val inputDayEight = readFileAsLinesUsingUseLines("src/main/resources/inputday8.txt")
-    println(inputDayEight[1].first)
-    println(inputDayEight)
     val masList = mutableListOf<Int>()
     var x = 0
-    fun jmp(i: Int) {
-        x += i
-    }
 
     fun acc(i: Int) {
         accumulator += i
-        x += 1
-    }
-
-    fun nop() {
         x += 1
     }
 
@@ -28,9 +19,9 @@ fun main(args: Array<String>) {
         val cmd = input.first
         val num = input.second
         when(cmd) {
-            "jmp" -> jmp(num)
+            "jmp" -> x += num
             "acc" -> acc(num)
-            "nop" -> nop()
+            "nop" -> x += 1
         }
     }
 
