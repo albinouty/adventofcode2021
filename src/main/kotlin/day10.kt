@@ -8,17 +8,17 @@ import java.io.File
 //multiply together
 fun readFileAsLinesUsingUseLines(fileName: String): List<String> = File(fileName).useLines { it.toList() }
 val inputDayTen = readFileAsLinesUsingUseLines("src/main/resources/inputday10.txt").map { it.toInt() }.sorted()
-var x = 0
+var x10 = 0
 fun main(args: Array<String>) {
     val diff = mutableListOf<Int>()
 
     println(inputDayTen)
     for(i in inputDayTen) {
-        x += 1
-        if(x > inputDayTen.size - 1) {
+        x10 += 1
+        if(x10 > inputDayTen.size - 1) {
             break
         }
-        diff.add(inputDayTen[x] - i)
+        diff.add(inputDayTen[x8] - i)
     }
     val diffCount = diff.groupingBy { it }.eachCount()
     var ones = 0
@@ -30,6 +30,9 @@ fun main(args: Array<String>) {
             threes = i.value + 1
         }
     }
-    println(ones*threes)
+   val ans = (3.toFloat() * inputDayTen.size * ones.toFloat())  + threes.toFloat()
     println(diffCount)
+    println(diff)
+    println("The answer is ${ones*threes}")
+    println("the number of unique combinations is $ans")
 }

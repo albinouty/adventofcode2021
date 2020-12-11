@@ -21,13 +21,15 @@ fun main(args: Array<String>) {
             bag to contentList
         }
     var x = 0
+    val what = mutableListOf<String>()
         for(i in bags) {
             for(z in i.value) {
                 if(z.second == "shiny gold") {
+                    what.add(i.key)
                     x += 1
                 }
             }
         }
     println(bags)
-    println(x)
+    println(what)
 }
