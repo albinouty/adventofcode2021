@@ -1,14 +1,4 @@
 import java.io.File
-
-//read file (DONE)
-//make regex to identify the colors (delimiter "contains" and ",") (DONE)
-//make a list of each line, index 0 would be the color of the bag, everything above index 0 is what it can contain
-//make a list of these lists (DONE)
-//loop through the list, go through every list index > 0 looking for "shiny gold bag". (DONE)
-//get a list of all of the matches (DONE)
-//Count how many, then remove that line from the outer list
-//loop through the outer list again, go through every list in there looking for matches to the result from the first check.
-// repeat until nothing left
 fun main(args: Array<String>) {
     val bags = File("src/main/resources/inputday7.txt").readLines()
         .associate { line ->
@@ -21,15 +11,53 @@ fun main(args: Array<String>) {
             bag to contentList
         }
     var x = 0
-    val what = mutableListOf<String>()
+    val goldHolders = mutableListOf<String>()
         for(i in bags) {
             for(z in i.value) {
                 if(z.second == "shiny gold") {
-                    what.add(i.key)
+                    goldHolders.add(i.key)
                     x += 1
                 }
             }
         }
-    println(bags)
-    println(what)
+
+    fun bfs(graph: Map<String, List<String>>, start: String): Int {
+        val q = mutableListOf(start)
+        val visisted = mutableSetOf<String>()
+        while(q.isNotEmpty()) {
+            val v = q.first()
+            q.removeAt(0)
+            if (!visisted.contains(v)) {
+                visisted.add(v)
+                val neighbors = graph.get(v)
+                if (neighbors != null) {
+                    for(n in neighbors) {
+                        q.add(n)
+                    }
+                }
+            }
+        }
+        return visisted.size - 1
+    }
+
+    val graph = mutableMapOf<String, MutableList<String>>()
+
+    for(outer in bags) {
+        for(inner in outer.value) {
+            val dest = outer.key
+            val src = inner.second
+            if (graph.contains(src)) {
+                val neighbors = graph.get(src)!!.toMutableList()
+                neighbors.add(dest)
+                graph.put(src, neighbors)
+            } else {
+                graph.put(src, mutableListOf(dest))
+            }
+        }
+    }
+
+    println(bfs(graph, "shiny gold"))
+
+//    println(bags)
+//    println(goldHolders)
 }

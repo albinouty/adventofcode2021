@@ -13,6 +13,7 @@ fun main(args: Array<String>) {
     fun readFileAsLinesUsingUseLines(fileName: String): List<String> = File(fileName).useLines { it.toList() }
     val inputDayThree = readFileAsLinesUsingUseLines("src/main/resources/inputday3.txt")
     val expInput = inputDayThree.map { it.repeat(expand) }
+    println(expInput)
     //day 2 input
     val uno = listOf(1, 1)
     val dos = listOf(3, 1)

@@ -6,10 +6,11 @@ import java.io.File
 //sum all 1s
 //sum all 3s
 //multiply together
-fun readFileAsLinesUsingUseLines(fileName: String): List<String> = File(fileName).useLines { it.toList() }
-val inputDayTen = readFileAsLinesUsingUseLines("src/main/resources/inputday10.txt").map { it.toInt() }.sorted()
+
 var x10 = 0
 fun main(args: Array<String>) {
+    fun readFileAsLinesUsingUseLines(fileName: String): List<String> = File(fileName).useLines { it.toList() }
+    val inputDayTen = readFileAsLinesUsingUseLines("src/main/resources/inputday10.txt").map { it.toInt() }.sorted()
     val diff = mutableListOf<Int>()
 
     println(inputDayTen)
