@@ -8,7 +8,6 @@ fun main(args: Array<String>) {
         return inputDayNine.subList(iter, churn+iter)
     }
     val values = inputDayNine.subList(churn, inputDayNine.size)
-    println(values)
 
     fun validValues(z: Int): List<Long> {
         val preamble = getPreamble(z)
@@ -23,12 +22,33 @@ fun main(args: Array<String>) {
         return sums.toList()
     }
 
+    //part 1
     var iterator = 0
     var ans = 0.toLong()
     for(i in values) {
         if(validValues(iterator).contains(i)) {
             iterator += 1
-        } else ans = i
+        } else {
+            ans = i
+            break
+        }
     }
-    println(ans)
+    println("The answer is $ans")
+
+    //part 2
+//    var part2: Long  = 0
+//    val range = inputDayNine.subList(0, inputDayNine.indexOf(ans))
+//    val mutableRange = range.toMutableList()
+//    for(i in range) {
+//        var iter = 0
+//        var x = 0.toLong()
+//        x += i
+//        if(x == ans) {
+//            part2 = range[0] + range[iter]
+//            break
+//        } else {
+//            ran
+//        }
+//        iter += 1
+//    }
 }
