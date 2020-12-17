@@ -58,30 +58,22 @@ fun main(args: Array<String>) {
         }
         return outer
     }
-
     val nearbyTickets = getNearbyTickets()
     val rules = getRules()
     val ranges = rules.values.flatten()
-    val invalidValues = mutableListOf<List<Int>>()
-    for(i in nearbyTickets) {
-        val invalid = mutableListOf<Int>()
-        for (a in i) {
-            for(b in ranges) {
-                if (a !in b) {
-                    invalid.add(a)
-                }
-            }
-
+    val possibleValues = mutableListOf<Int>()
+    for(u in ranges) {
+        for(p in u) {
+            possibleValues.add(p)
         }
-        val distinct = invalid.distinct().toMutableList()
-        for(c in distinct) {
-            val count = invalid.count { it == c }
-            val overall = ranges.count()
-            if(count != overall){
-                invalid.removeAll { it == c }
-            }
-        }
-        invalidValues.add(invalid.distinct())
     }
-    println("The ticket scanning error rate is ${invalidValues.flatten().sum()}.")
+    val invalidValues = mutableListOf<Int>()
+    for(i in nearbyTickets){
+        for(w in i) {
+            if(!possibleValues.contains(w)) {
+                invalidValues.add(w)
+            }
+        }
+    }
+    println("The ticket scanning error rate is ${invalidValues.sum()}.")
 }
