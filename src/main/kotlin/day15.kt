@@ -21,7 +21,29 @@ fun main(args: Array<String>) {
                 break
             }
         }
+        //part 1
         println("the answer is ${input[2019]}")
     }
     println(time/1000)
+
+    //part 2
+
+    val hash = HashMap<Int, List<Int>>()
+    val input2 = listOf(0,3,6)
+    var iterator2 = 0
+    for(i in input2) {
+        hash.put(i, listOf(iterator2))
+        iterator2 += 1
+    }
+
+    while(true) {
+        break
+    }
+
+//    fun resolve(b: Int) {
+//        if(!hash.containsKey(b)) {
+//            hash.replace(0, )
+//        }
+//    }
+    println(hash)
 }
