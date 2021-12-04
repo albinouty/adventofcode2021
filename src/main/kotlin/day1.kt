@@ -1,9 +1,6 @@
 import java.io.File
 
 fun main(args: Array<String>) {
-    /**
-    Part 1
-     */
     fun readFileAsLinesUsingUseLines(fileName: String): List<String> = File(fileName).useLines { it.toList() }
     val day1input = readFileAsLinesUsingUseLines("src/main/resources/day1data.txt").map { it.toInt() }
 
@@ -45,10 +42,4 @@ fun main(args: Array<String>) {
         println("Part 2 answer is ${depthCalculator(triVals)}")
     }
     day1()
-
-    /**
-    Part 2
-     */
-
-
 }
