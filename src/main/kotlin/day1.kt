@@ -5,22 +5,44 @@ fun main(args: Array<String>) {
     Part 1
      */
     fun readFileAsLinesUsingUseLines(fileName: String): List<String> = File(fileName).useLines { it.toList() }
+    val day1input = readFileAsLinesUsingUseLines("src/main/resources/day1data.txt").map { it.toInt() }
 
     fun day1() {
-        var g = 0
-        var count = 0
-        val day1input = readFileAsLinesUsingUseLines("src/main/resources/day1data.txt").map { it.toInt() }
-        for(i in day1input) {
-            if(g == 0) {
-                g += 1
-            } else {
-                if(i - day1input[g-1] > 0) {
-                    count += 1
+        /**
+        Part 1
+         */
+        fun depthCalculator(list: List<Int>): Int {
+            var g = 0
+            var count = 0
+            for(i in list) {
+                if(g == 0) {
+                    g += 1
+                } else {
+                    if(i - list[g-1] > 0) {
+                        count += 1
+                    }
+                    g += 1
                 }
-                g += 1
+            }
+            return count
+        }
+        println("Part 1 answer is ${depthCalculator(day1input)}")
+
+        /**
+        Part 2
+         */
+        val triVals = mutableListOf<Int>()
+        var index = 0
+        for(i in day1input) {
+            if(index == (day1input.lastIndex - 1)){
+                break
+            } else {
+                val num = i + day1input[index+1] + day1input[index+2]
+                triVals.add(num)
+                index += 1
             }
         }
-        println(count)
+        println("Part 2 answer is ${depthCalculator(triVals)}")
     }
     day1()
 
