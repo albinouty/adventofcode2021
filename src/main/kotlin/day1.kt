@@ -14,8 +14,7 @@ fun main(args: Array<String>) {
             if(g == 0) {
                 g += 1
             } else {
-                val blah = day1input[g-1]
-                if(i - blah > 0) {
+                if(i - day1input[g-1] > 0) {
                     count += 1
                 }
                 g += 1
