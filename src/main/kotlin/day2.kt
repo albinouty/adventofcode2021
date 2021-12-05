@@ -3,7 +3,7 @@ import java.io.File
 fun main(args: Array<String>) {
     fun readFileAsLinesUsingUseLines(fileName: String): List<Pair<String, Int>> = File(fileName).useLines { it.map {
             z -> Pair(z.substringBefore(" "), z.substringAfter(" ").toInt())
-        }.toList()
+    }.toList()
     }
     val day2input = readFileAsLinesUsingUseLines("src/main/resources/day2data.txt")
     fun day2() {
