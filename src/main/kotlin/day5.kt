@@ -18,9 +18,10 @@ fun main(args: Array<String>) {
             }.toList()
         }
 
-    val day5input = readFileAsLinesUsingUseLines("src/main/resources/day5data.txt").filter {
-        it.first.first == it.second.first || it.first.second == it.second.second
-    }
+    val day5input = readFileAsLinesUsingUseLines("src/main/resources/day5data.txt")
+//        .filter {
+//        it.first.first == it.second.first || it.first.second == it.second.second
+//    }
 
     fun getGridDimensions(input: List<Pair<Pair<Int, Int>, Pair<Int, Int>>>): Pair<Int, Int> {
         var maxX = 0
@@ -56,7 +57,7 @@ fun main(args: Array<String>) {
 
     fun drawLines(i: List<Pair<Pair<Int, Int>, Pair<Int, Int>>>) {
         for (p in i) {
-            if (p.first.first == p.second.first) {
+            if (p.first.first == p.second.first && p.first.second != p.second.second) {
                 //draw vertical line
                 val x = p.first.first
                 val tmp = listOf(p.first.second, p.second.second)
@@ -71,7 +72,7 @@ fun main(args: Array<String>) {
                     grid.add(q, l)
                 }
             }
-            else if (p.first.second == p.second.second) {
+            else if (p.first.second == p.second.second && p.first.first != p.second.first) {
                 //draw horizontal line
                 val y  = p.first.second
                 val tmp = listOf(p.first.first, p.second.first)
@@ -85,8 +86,36 @@ fun main(args: Array<String>) {
                     grid.removeAt(y)
                     grid.add(y, l)
                 }
+            } else if (p.first.first < p.second.first && p.first.second < p.second.second) {
+                //draw diagonal line
+                //right to left, going down
+                val startY = p.first.second
+                val endY = p.second.second
+                for (q in startY..endY) {
+                    val l = grid[q].toMutableList()
+                    val z = l[q]
+                    l.removeAt(q)
+                    l.add(q, z + 1)
+                    grid.removeAt(q)
+                    grid.add(q, l)
+                }
+            } else {
+                //figure out rows (y max min)
+                val tmpY = listOf(p.first.second, p.second.second)
+                val minY = tmpY.min() ?: tmpY[0]
+                val maxY = tmpY.max() ?: tmpY[0]
+                val maxX = listOf(p.first.first, p.second.first).max()!!
+                for(q in minY..maxY) {
+                    val l = grid[q].toMutableList()
+                    val z = l[maxX - q]
+                    l.removeAt(maxX - q)
+                    l.add(maxX - q, z + 1)
+                    grid.removeAt(q)
+                    grid.add(q, l)
+                }
+                //figure out index to edit (starting x - current y)
             }
-                //else do nothing
+            //left to right, going down
         }
     }
 
