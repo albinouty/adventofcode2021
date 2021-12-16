@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
         template.forEachIndexed { indx, char ->
             if(indx == template.size -1) {
                 //do nothing
-            } else if(indx == 0) {
+            } else if(indx.toLong() == 0.toLong()) {
                 val str = "$char${template[indx+1]}"
                 val insertValue = rules.getValue(str)
                 val newString = "$char$insertValue${template[indx+1]}"
@@ -44,7 +44,7 @@ fun main(args: Array<String>) {
 
     var temp = mutableListOf<Char>()
     val rules = generateRules()
-    for(i in 1..10) {
+    for(i in 1..5) {
         if(i == 1) {
             temp = insert(template, rules).toMutableList()
         } else {
