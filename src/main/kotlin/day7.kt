@@ -12,9 +12,9 @@ fun main(args: Array<String>) {
     fun readFirstLine(fileName: String): String = File(fileName).useLines { it.toList() }[0]
     fun day7part1() {
         val data = readFirstLine("src/main/resources/day7data.txt").split(",").toList().map { it.toInt() }
-        val maxCrab = data.max()!!
+        val maxPosition = data.max()!!
         val fuelUsage = mutableMapOf<Int, Int>()
-        repeat(maxCrab) {
+        repeat(maxPosition) {
             var fuel = 0
             for (i in data) {
                 fuel += abs(it - i)
@@ -22,7 +22,7 @@ fun main(args: Array<String>) {
             fuelUsage[it] = fuel
         }
         val min = fuelUsage.minBy { it.value }!!
-        println("The minimum usage of fuel would be ${min.value} and this would be at position ${min.key}")
+        println("With $maxPosition positions, the minimum usage of fuel would be ${min.value} and this would be at position ${min.key}")
     }
     fun day7part2() {
         fun readFirstLine(fileName: String): String = File(fileName).useLines { it.toList() }[0]
@@ -40,7 +40,7 @@ fun main(args: Array<String>) {
             fuelUsage[pos] = fuel
         }
         val min = fuelUsage.minBy { it.value }!!
-        println("The minimum usage of fuel would be ${min.value} and this would be at position ${min.key}")
+        println("With $maxPosition positions, the minimum usage of fuel would be ${min.value} and this would be at position ${min.key}")
     }
     day7part1()
     day7part2()
