@@ -1,7 +1,7 @@
 import java.io.File
 
 fun main(args: Array<String>) {
-    fun readFileAsLinesUsingUseLines(fileName: String) = File(fileName).useLines { it ->
+    fun readFileAsLinesUsingUseLines(fileName: String) = File(fileName).useLines {
         it.toList().map {s ->
             s.map {c ->
                 c.toString().toInt()
