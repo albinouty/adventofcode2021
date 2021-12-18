@@ -43,7 +43,66 @@ fun main(args: Array<String>) {
 //        }
     }
 
+    fun getBasin(coordinate: Pair<Int, Int>, height: Int): List<Int> {
+        val next = height+1
+        val basin = mutableListOf<Int>()
+        val nextMap = mutableMapOf<Pair<Int, Int>, Int>()
+        basin.add(height)
+        val above = input.getOrNull(coordinate.first-1)?.getOrNull(coordinate.second) ?: 13
+        if(above == next) {
+            basin.add(above)
+            nextMap[Pair(coordinate.first-1, coordinate.second)] = above
+        }
+        val below = input.getOrNull(coordinate.first+1)?.getOrNull(coordinate.second) ?: 13
+        if(below == next) {
+            basin.add(below)
+            nextMap[Pair(coordinate.first+1, coordinate.second)] = below
+        }
+        val left = input.getOrNull(coordinate.first)?.getOrNull(coordinate.second-1) ?: 13
+        if(left == next) {
+            basin.add(left)
+            nextMap[Pair(coordinate.first, coordinate.second-1)] = left
+        }
+        val right = input.getOrNull(coordinate.first)?.getOrNull(coordinate.second+1) ?: 13
+        if(right == next) {
+            basin.add(right)
+            nextMap[Pair(coordinate.first, coordinate.second+1)] = right
+        }
+        if(nextMap.isNotEmpty()) {
+            nextMap.forEach {
+                getBasin(it.key, it.value).forEach { p ->
+                    basin.add(p)
+                }
+            }
+        }
+        return basin
+    }
+
     fun part2() {
+        val lows = mutableMapOf<Pair<Int, Int>, Int>()
+        input.forEachIndexed { outerIter, list ->
+            list.forEachIndexed { innerIter, height ->
+                if(checkIfLowest(height, outerIter, innerIter)) {
+                    val lowLocation = Pair(outerIter, innerIter)
+                    lows[lowLocation] = height
+                }
+            }
+        }
+
+        val basins = mutableListOf<Int>()
+        lows.forEach {
+            //the lowpoint is put into a list
+            //call a function which will start on the lowpoint and look up, down, left, and right in the  main input variable
+            //any of those values that are LARGER than it by 1 need to have two things happen
+            //1 - that value needs to be put into the list with the original lowpoint
+            //2 - put into map along with its position in the main input variable (list b)
+            //call the same function as above
+            //if the function is called and the map is zero, return nothing
+            val what = getBasin(it.key, it.value)
+            println(what)
+        }
+
+        println(lows)
     }
     part1()
     part2()
