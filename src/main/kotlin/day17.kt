@@ -1,8 +1,6 @@
-import java.io.File
-
 fun main(args: Array<String>) {
-    val targetY = -10..-5
-    val targetX = 20..30
+    val targetY = -176..-117
+    val targetX = 79..137
     fun isInTargetArea(t: Pair<Int, Int>): Pair<Boolean, List<Int>> {
         var xVel = t.first
         var yVel = t.second
@@ -22,12 +20,11 @@ fun main(args: Array<String>) {
 
             if (xPos in targetX && yPos in targetY) {
                 return Pair(true, yPositions)
-            } else if (xPos > targetX.last || yPos <  targetY.last) {
+            } else if (xPos > targetX.last || yPos <  targetY.first) {
                 return Pair(false, emptyList())
             }
         }
     }
-
     fun part1() {
         val accurateVelocities = mutableListOf<Pair<Pair<Int, Int>, List<Int>>>()
         val iter = 2000 //tinker with this if you get the wrong answer
@@ -43,12 +40,12 @@ fun main(args: Array<String>) {
         val maxY = accurateVelocities.maxBy { it.first.second }
         println("The best initial velocity is ${maxY!!.first} and the highest the probe goes is ${maxY.second.maxBy { it }}")
     }
-
     fun part2() {
         val accurateVelocities = mutableListOf<Pair<Pair<Int, Int>, List<Int>>>()
-        val iter = 2000 //tinker with this if you get the wrong answer
+        val iter = 5000 //tinker with this if you get the wrong answer
+        val yRange = -iter..iter
         repeat(iter) {x ->
-            repeat(iter) {y ->
+            for(y in yRange) {
                 val vel = Pair(x, y)
                 val res = isInTargetArea(vel)
                 if(res.first) {
@@ -57,10 +54,8 @@ fun main(args: Array<String>) {
             }
         }
         val maxY = accurateVelocities.maxBy { it.first.second }
-        println("The number of initial velocities that get into the target area is ${accurateVelocities.size}}")
-
+        println("The number of initial velocities that get into the target area is ${accurateVelocities.size}")
     }
 //    part1()
     part2()
-
 }
