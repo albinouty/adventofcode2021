@@ -17,7 +17,6 @@ fun main(args: Array<String>) {
                 xVel -= 1
             } else xVel += 1
             yVel -= 1
-
             if (xPos in targetX && yPos in targetY) {
                 return Pair(true, yPositions)
             } else if (xPos > targetX.last || yPos <  targetY.first) {
@@ -53,7 +52,6 @@ fun main(args: Array<String>) {
                 }
             }
         }
-        val maxY = accurateVelocities.maxBy { it.first.second }
         println("The number of initial velocities that get into the target area is ${accurateVelocities.size}")
     }
 //    part1()
