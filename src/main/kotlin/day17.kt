@@ -1,3 +1,5 @@
+import kotlin.math.abs
+
 fun main(args: Array<String>) {
     val targetY = -176..-117
     val targetX = 79..137
@@ -54,6 +56,28 @@ fun main(args: Array<String>) {
         }
         println("The number of initial velocities that get into the target area is ${accurateVelocities.size}")
     }
+
+    //simple cipher (not advent of code)
+    fun decrypt(message: String, k: Int) : String {
+        fun getLetter(l: String, k: Int): String {
+            val wheel: List<String> = listOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
+            val lPos = wheel.indexOf(l)
+//            val n =abs(k - (lPos % wheel.size))
+//            println(n)
+//            return wheel.get(n)
+            return wheel.getOrElse(lPos - k) { wheel[wheel.size - abs(lPos -k)] }
+        }
+        val mList = mutableListOf<String>()
+        message.map {
+            mList.add(getLetter(it.toString(), k))
+        }
+        var ans = ""
+        mList.map { ans = "$ans$it" }
+        return ans
+    }
+
 //    part1()
-    part2()
+//    part2()
+    println(20%26)
+    println(decrypt("ABCD", 1))
 }
